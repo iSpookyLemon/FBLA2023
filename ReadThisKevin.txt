@@ -1,0 +1,13 @@
+*I have not finished this notepad doc yet*
+
+Make sure there is an error message displayed when there is a request to generate a quarterly report but no option selected.
+Also a general error message to display is that if there is no data for a certain student or quarter then display message saying No Data.
+
+Here are the 3 prizes for the top 3.
+1st place gets a school spirit item from the school store.
+2nd place gets a free frozen treat from the school cafeteria.
+3rd place gets the opportunity to park in a reserved parking spot 
+so they can avoid traffic while getting home. 
+If student does not drive, then they receive 1 free pass that 
+allows them to be up to 10 minutes late to their first class.
+
