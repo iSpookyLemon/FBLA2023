@@ -9,7 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import Backend
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -43,42 +43,61 @@ class Ui_MainWindow(object):
         font.setPointSize(8)
         self.instructions2.setFont(font)
         self.instructions2.setObjectName("instructions2")
+
+        #Individual Report
         self.pushButton = QtWidgets.QPushButton(self.welcome_screen)
         self.pushButton.setGeometry(QtCore.QRect(350, 210, 361, 81))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(lambda : self.switch_screen(1))
+
+        #Add Points
         self.pushButton_2 = QtWidgets.QPushButton(self.welcome_screen)
         self.pushButton_2.setGeometry(QtCore.QRect(350, 310, 361, 81))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton_2.setFont(font)
         self.pushButton_2.setObjectName("pushButton_2")
+        self.pushButton_2.clicked.connect(lambda : self.switch_screen(2))
+
+        #Quarterly Report
         self.pushButton_3 = QtWidgets.QPushButton(self.welcome_screen)
         self.pushButton_3.setGeometry(QtCore.QRect(350, 410, 361, 81))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton_3.setFont(font)
         self.pushButton_3.setObjectName("pushButton_3")
+        self.pushButton_3.clicked.connect(lambda : self.switch_screen(3))
+
+        #Random Winner
         self.pushButton_4 = QtWidgets.QPushButton(self.welcome_screen)
         self.pushButton_4.setGeometry(QtCore.QRect(350, 510, 361, 81))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton_4.setFont(font)
         self.pushButton_4.setObjectName("pushButton_4")
+        self.pushButton_4.clicked.connect(lambda : self.switch_screen(4))
+
+        #Highest Points
         self.pushButton_5 = QtWidgets.QPushButton(self.welcome_screen)
         self.pushButton_5.setGeometry(QtCore.QRect(350, 610, 361, 81))
         font = QtGui.QFont()
         font.setPointSize(12)
         self.pushButton_5.setFont(font)
         self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_5.clicked.connect(lambda : self.switch_screen(5))
+
+        #Help
         self.pushButton_6 = QtWidgets.QPushButton(self.welcome_screen)
         self.pushButton_6.setGeometry(QtCore.QRect(350, 710, 361, 81))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton_6.setFont(font)
         self.pushButton_6.setObjectName("pushButton_6")
+        self.pushButton_6.clicked.connect(lambda : self.switch_screen(6))
+
         self.stackedWidget.addWidget(self.welcome_screen)
         self.individual_reports_screen = QtWidgets.QWidget()
         self.individual_reports_screen.setObjectName("individual_reports_screen")
@@ -91,27 +110,38 @@ class Ui_MainWindow(object):
         font.setPointSize(30)
         self.name.setFont(font)
         self.name.setObjectName("name")
+
+        #Student List
         self.label_2 = QtWidgets.QLabel(self.individual_reports_screen)
         self.label_2.setGeometry(QtCore.QRect(40, 180, 401, 41))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+        #Actual List
         self.comboBox = QtWidgets.QComboBox(self.individual_reports_screen)
         self.comboBox.setGeometry(QtCore.QRect(40, 220, 401, 31))
         self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItems([student.name for student in Backend.student_list.students])
+        self.comboBox.activated.connect(self.display_individual_report)
+
+
         self.label_3 = QtWidgets.QLabel(self.individual_reports_screen)
         self.label_3.setGeometry(QtCore.QRect(40, 380, 411, 20))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
+
+        #Add Student
         self.pushButton_8 = QtWidgets.QPushButton(self.individual_reports_screen)
         self.pushButton_8.setGeometry(QtCore.QRect(460, 380, 131, 28))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.pushButton_8.setFont(font)
         self.pushButton_8.setObjectName("pushButton_8")
+
+        #Individual Report Tab
         self.tabWidgetPerQuarter = QtWidgets.QTabWidget(self.individual_reports_screen)
         self.tabWidgetPerQuarter.setGeometry(QtCore.QRect(490, 140, 531, 211))
         font = QtGui.QFont()
@@ -121,6 +151,8 @@ class Ui_MainWindow(object):
         self.tabWidgetPerQuarter.setFont(font)
         self.tabWidgetPerQuarter.setStyleSheet("")
         self.tabWidgetPerQuarter.setObjectName("tabWidgetPerQuarter")
+
+        #Q1
         self.Q1 = QtWidgets.QWidget()
         font = QtGui.QFont()
         font.setPointSize(9)
@@ -129,16 +161,28 @@ class Ui_MainWindow(object):
         self.Q1.setFont(font)
         self.Q1.setObjectName("Q1")
         self.tabWidgetPerQuarter.addTab(self.Q1, "")
+        self.Q1_report = QtWidgets.QLabel(self.Q1)
+
+        #Q2
         self.Q2 = QtWidgets.QWidget()
         self.Q2.setObjectName("Q2")
         self.tabWidgetPerQuarter.addTab(self.Q2, "")
+        self.Q2_report = QtWidgets.QLabel(self.Q2)
+
+        #Q3
         self.Q3 = QtWidgets.QWidget()
         self.Q3.setObjectName("Q3")
         self.tabWidgetPerQuarter.addTab(self.Q3, "")
+        self.Q3_report = QtWidgets.QLabel(self.Q3)
+
+        #Q4
         self.Q4 = QtWidgets.QWidget()
         self.Q4.setObjectName("Q4")
         self.tabWidgetPerQuarter.addTab(self.Q4, "")
+        self.Q4_report = QtWidgets.QLabel(self.Q4)
+
         self.stackedWidget.addWidget(self.individual_reports_screen)
+
         self.add_points_screen = QtWidgets.QWidget()
         self.add_points_screen.setObjectName("add_points_screen")
         self.name_3 = QtWidgets.QLabel(self.add_points_screen)
@@ -153,9 +197,14 @@ class Ui_MainWindow(object):
         font.setPointSize(9)
         self.label_14.setFont(font)
         self.label_14.setObjectName("label_14")
+
+        #Add Points ComboBox
         self.comboBox_2 = QtWidgets.QComboBox(self.add_points_screen)
         self.comboBox_2.setGeometry(QtCore.QRect(90, 180, 391, 31))
         self.comboBox_2.setObjectName("comboBox_2")
+        self.comboBox_2.addItems([student.name for student in Backend.student_list.students])
+
+
         self.radioButton_13 = QtWidgets.QRadioButton(self.add_points_screen)
         self.radioButton_13.setGeometry(QtCore.QRect(520, 180, 95, 20))
         self.radioButton_13.setObjectName("radioButton_13")
@@ -271,6 +320,8 @@ class Ui_MainWindow(object):
         self.radioButton_41.setGeometry(QtCore.QRect(370, 540, 131, 20))
         self.radioButton_41.setObjectName("radioButton_41")
         self.stackedWidget.addWidget(self.add_points_screen)
+
+
         self.quarterly_report_screen = QtWidgets.QWidget()
         self.quarterly_report_screen.setObjectName("quarterly_report_screen")
         self.name_4 = QtWidgets.QLabel(self.quarterly_report_screen)
@@ -306,9 +357,13 @@ class Ui_MainWindow(object):
         self.radioButton_12 = QtWidgets.QRadioButton(self.quarterly_report_screen)
         self.radioButton_12.setGeometry(QtCore.QRect(510, 310, 95, 20))
         self.radioButton_12.setObjectName("radioButton_12")
+
+        #Generate Report Button
         self.pushButton_10 = QtWidgets.QPushButton(self.quarterly_report_screen)
         self.pushButton_10.setGeometry(QtCore.QRect(630, 200, 231, 51))
         self.pushButton_10.setObjectName("pushButton_10")
+        self.pushButton_10.clicked.connect(self.generate_report)
+
         self.radioButton_6 = QtWidgets.QRadioButton(self.quarterly_report_screen)
         self.radioButton_6.setGeometry(QtCore.QRect(230, 260, 271, 20))
         self.radioButton_6.setObjectName("radioButton_6")
@@ -318,10 +373,12 @@ class Ui_MainWindow(object):
         self.radioButton_8 = QtWidgets.QRadioButton(self.quarterly_report_screen)
         self.radioButton_8.setGeometry(QtCore.QRect(230, 300, 271, 20))
         self.radioButton_8.setObjectName("radioButton_8")
-        self.tableView = QtWidgets.QTableView(self.quarterly_report_screen)
-        self.tableView.setGeometry(QtCore.QRect(210, 380, 671, 411))
-        self.tableView.setObjectName("tableView")
+        self.tableWidget = QtWidgets.QTableWidget(self.quarterly_report_screen)
+        self.tableWidget.setGeometry(QtCore.QRect(210, 380, 671, 411))
+        self.tableWidget.setObjectName("tableWidget")
         self.stackedWidget.addWidget(self.quarterly_report_screen)
+
+        #Random Winner
         self.random_winner_screen = QtWidgets.QWidget()
         self.random_winner_screen.setObjectName("random_winner_screen")
         self.name_6 = QtWidgets.QLabel(self.random_winner_screen)
@@ -335,23 +392,30 @@ class Ui_MainWindow(object):
         self.label_10.setObjectName("label_10")
         self.radioButton = QtWidgets.QRadioButton(self.random_winner_screen)
         self.radioButton.setGeometry(QtCore.QRect(190, 180, 271, 41))
-        self.radioButton.setObjectName("radioButton")
+        self.radioButton.setObjectName("9")
         self.radioButton_2 = QtWidgets.QRadioButton(self.random_winner_screen)
         self.radioButton_2.setGeometry(QtCore.QRect(190, 220, 271, 41))
-        self.radioButton_2.setObjectName("radioButton_2")
+        self.radioButton_2.setObjectName("10")
         self.radioButton_3 = QtWidgets.QRadioButton(self.random_winner_screen)
         self.radioButton_3.setGeometry(QtCore.QRect(190, 260, 271, 41))
-        self.radioButton_3.setObjectName("radioButton_3")
+        self.radioButton_3.setObjectName("11")
         self.radioButton_4 = QtWidgets.QRadioButton(self.random_winner_screen)
         self.radioButton_4.setGeometry(QtCore.QRect(190, 300, 271, 41))
-        self.radioButton_4.setObjectName("radioButton_4")
+        self.radioButton_4.setObjectName("12")
+
+        #Winner Button
         self.pushButton_9 = QtWidgets.QPushButton(self.random_winner_screen)
         self.pushButton_9.setGeometry(QtCore.QRect(190, 350, 241, 41))
         self.pushButton_9.setObjectName("pushButton_9")
+        self.pushButton_9.clicked.connect(self.generate_winner)
+
         self.listWidget_2 = QtWidgets.QListWidget(self.random_winner_screen)
         self.listWidget_2.setGeometry(QtCore.QRect(530, 190, 256, 192))
         self.listWidget_2.setObjectName("listWidget_2")
         self.stackedWidget.addWidget(self.random_winner_screen)
+
+
+        #Top 3
         self.top_3_screen = QtWidgets.QWidget()
         self.top_3_screen.setObjectName("top_3_screen")
         self.name_5 = QtWidgets.QLabel(self.top_3_screen)
@@ -363,16 +427,22 @@ class Ui_MainWindow(object):
         self.label_9 = QtWidgets.QLabel(self.top_3_screen)
         self.label_9.setGeometry(QtCore.QRect(160, 130, 561, 61))
         self.label_9.setObjectName("label_9")
+
+        #Display Top 3 Button
         self.pushButton_7 = QtWidgets.QPushButton(self.top_3_screen)
         self.pushButton_7.setGeometry(QtCore.QRect(740, 140, 201, 41))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.pushButton_7.setFont(font)
         self.pushButton_7.setObjectName("pushButton_7")
+        self.pushButton_7.clicked.connect(self.get_top_3)
+
         self.listWidget = QtWidgets.QListWidget(self.top_3_screen)
         self.listWidget.setGeometry(QtCore.QRect(160, 200, 781, 192))
         self.listWidget.setObjectName("listWidget")
         self.stackedWidget.addWidget(self.top_3_screen)
+
+        #Help Screen
         self.help_screen = QtWidgets.QWidget()
         self.help_screen.setObjectName("help_screen")
         self.name_2 = QtWidgets.QLabel(self.help_screen)
@@ -420,9 +490,49 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
         self.tabWidgetPerQuarter.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def switch_screen(self, new_screen):
+        self.stackedWidget.setCurrentIndex(new_screen)
+
+    def display_individual_report(self):
+        student = Backend.student_list.students[self.comboBox.currentIndex()]
+        self.Q1_report.setText(str(student.q1points))
+        self.Q1_report.adjustSize()
+        self.Q2_report.setText(str(student.q2points))
+        self.Q2_report.adjustSize()
+        self.Q3_report.setText(str(student.q3points))
+        self.Q3_report.adjustSize()
+        self.Q4_report.setText(str(student.q4points))
+        self.Q4_report.adjustSize()
+
+    def generate_report(self):
+        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setHorizontalHeaderLabels(["Name", "Points"])
+        self.tableWidget.setRowCount(10)
+        """
+        header = self.tableWidget.horizontalHeader()
+        self.tableWidget.horizontalHeader().setStyleSheet("QHeaderView::section {border-bottom: 1px solid gray;} ")
+        self.tableWidget.setHorizontalHeader(header)
+        """
+
+    def generate_winner(self):
+        checked_button = self.get_checked_button(["", "_2", "_3", "_4"])
+        grade = int(checked_button.objectName())
+        winner = Backend.student_list.generate_winner(grade)
+        QtWidgets.QListWidgetItem(winner, self.listWidget_2)
+
+    def get_checked_button(self, buttons):
+        for button in buttons:
+            if eval("self.radioButton" + button).isChecked():
+                return eval("self.radioButton" + button)
+
+    def get_top_3(self):
+        top_3_names, top_3_points = Backend.student_list.get_top_3()
+        for name in top_3_names:
+            QtWidgets.QListWidgetItem(name, self.listWidget)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -510,14 +620,14 @@ class Ui_MainWindow(object):
         self.label_5.setText(_translate("MainWindow", "Navigate to the individual student points page and click the add student button!"))
         self.label_6.setText(_translate("MainWindow", "Please reach out to the creators of this program for further questions."))
         self.label_7.setText(_translate("MainWindow", "prateek.singh06@outlook.com"))
-        self.label_8.setText(_translate("MainWindow", "kevinkli@gmail.com"))
+        self.label_8.setText(_translate("MainWindow", "kevinkli405@gmail.com"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+#if __name__ == "__main__":
+import sys
+app = QtWidgets.QApplication(sys.argv)
+MainWindow = QtWidgets.QMainWindow()
+ui = Ui_MainWindow()
+ui.setupUi(MainWindow)
+MainWindow.show()
+sys.exit(app.exec_())
